@@ -1,0 +1,52 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 18,
+    "modules-left": [
+      "sway/workspaces",
+    ],
+    "modules-center": [
+      "sway/window"
+    ],
+    "modules-right": [
+      "tray", 
+      "pulseaudio", 
+      "clock"
+    ],
+    "sway/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": false,
+    },
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    },
+    "clock": {
+        "format": "{:%H:%M} ",
+        "format-alt": "{:%A, %Y-%m-%d} ",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "on-click-right": "kitty --class calcure calcure"
+    },
+    "cpu": {
+        "format": "{usage}% "
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "pulseaudio": {
+        //"scroll-step": 1,
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "kitty --class pulsemixer pulsemixer"
+    },
+}

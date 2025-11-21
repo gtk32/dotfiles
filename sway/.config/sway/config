@@ -1,0 +1,209 @@
+# Set mod key
+set $mod Mod4
+
+# Set terminal
+set $term kitty
+
+# Set launcher
+set $menu exec /usr/bin/albert toggle
+
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+output DP-1 bg /home/geert/Pictures/wallpapers/river_valley.jpg fill
+
+# Set screen resolution (DP-1 pos 2560,0)
+output DP-1 resolution 3840x2160@160Hz scale 2
+
+# Default floating windows
+for_window [app_id="calcure"] floating enable, border pixel 2, resize set 1000 600
+for_window [app_id="qalculate-gtk"] floating enable, border pixel 2
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="pulsemixer"] floating enable, resize set 1500 800
+
+# Set font
+font pango:RobotoMono Nerd Font Mono 16
+
+###---Keyboard settings---#
+Input "type:keyboard" {
+        xkb_layout us,us
+        xkb_variant ,intl
+        xkb_options grp:shift_caps_toggle
+}
+
+###---Key bindings---###
+
+# Start a terminal
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+q kill
+
+# Start launcher
+bindsym $mod+Space exec $menu
+
+# Start filemanager
+bindsym $mod+d exec thunar
+
+# Screenshot utility
+bindsym $mod+Print exec grim -g "$(slurp -o -r -c '#ff0000ff')" -t ppm - | satty --filename - --fullscreen --copy-command wl-copy --action-on-enter save-to-clipboard --early-exit --output-filename ~/screenshots/snippet-$(date '+%Y%m%d-%H:%M:%S').png
+bindsym Print exec /usr/local/bin/make-screenshot
+
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+floating_modifier $mod normal
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+l exec /usr/local/bin/tofi-powermenu
+
+# Manage sound
+bindsym F12 exec pactl set-sink-volume alsa_output.pci-0000_09_00.6.analog-stereo +1%
+bindsym F11 exec pactl set-sink-volume alsa_output.pci-0000_09_00.6.analog-stereo -1%
+bindsym F10 exec pulsemixer --toggle-mute
+
+###---Moving around---###
+
+# Change window focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused windows
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+
+###---Workspaces---###
+
+# Switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# Move back and forth to workspaces
+bindsym Alt+Right workspace next
+bindsym Alt+Left workspace prev
+
+# Bind workspaces to primary monitor
+workspace 1 output DP-1
+workspace 2 output DP-1
+workspace 3 output DP-1
+workspace 4 output DP-1
+workspace 5 output DP-1
+workspace 6 output DP-1
+workspace 7 output DP-1
+workspace 8 output DP-1
+workspace 9 output DP-1
+workspace 10 output DP-1
+
+###---Layout stuff---###
+
+# You can "split" the current object of your focus with
+# $mod+h or $mod+v, for horizontal and vertical splits
+bindsym $mod+h splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+bindcode $mod+34 layout stacking
+bindcode $mod+35 layout tabbed
+bindcode $mod+33 layout toggle split
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+t floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+Shift+t focus mode_toggle
+
+# Move focus to the parent container
+bindsym $mod+a focus parent
+
+###---Visuals---###
+
+# Border style (eliminating title bars)
+default_border pixel 3
+
+# Gaps
+hide_edge_borders smart
+
+# Colors
+client.focused              #4a7fbf  #4a7fbf  #dddddd  #4a7fbf  #4a7fbf
+client.focused_inactive     #444444  #444444  #dddddd  #444444  #444444
+client.unfocused            #31363b  #31363b  #dddddd  #31363b  #31363b
+client.urgent               #da4453  #da4453  #da4453  #da4453  #da4453
+
+
+###---Resizing containers---###
+
+# Resize containers
+bindsym Shift+Left resize shrink width 50px
+bindsym Shift+Down resize grow height 50px
+bindsym Shift+Up resize shrink height 50px
+bindsym Shift+Right resize grow width 50px
+
+# Trigger "resize" mode
+bindsym $mod+r mode "resize"
+
+mode "resize" {
+# Resize container while in "resize" mode
+bindsym Left resize shrink width 50px
+bindsym Down resize grow height 50px
+bindsym Up resize shrink height 50px
+bindsym Right resize grow width 50px
+
+# Return to default mode
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+
+
+###---Startup programs---###
+exec /usr/bin/lxpolkit
+exec mako
+exec wlsunset -l 52.2 -L 4.5
+exec nm-applet --indicator
+exec udiskie
+exec /usr/bin/albert
+exec ~/.local/bin/check_vpn_connection.sh
+
+###---Status Bar---###
+
+bar {
+    swaybar_command waybar
+}
+
+###---Alternative keybindings---#
+bindsym Mod1+b exec flatpak run one.ablaze.floorp
+bindsym Mod1+m exec spotify-launcher
+bindsym Mod1+n exec /usr/bin/netbird-ui
+bindsym Mod1+c exec qalculate-gtk
+bindsym Mod1+comma exec OBSIDIAN_USE_WAYLAND=1 obsidian -enable-features=UseOzonePlatform -ozone-platform=wayland
+bindsym Mod1+period exec /usr/bin/thunderbird
+bindsym Mod1+slash exec flatpak run com.microsoft.Edge --enable-features=UseOzonePlatform --ozone-platform=wayland
+
+include /etc/sway/config.d/*

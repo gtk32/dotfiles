@@ -1,0 +1,23 @@
+anchor=top-right
+border-radius=5
+default-timeout=5000
+max-visible=5
+height=500
+width=400
+icons=1
+font=Iosevka NFM ExtraLight 16
+
+[urgency=low]
+background-color=#EAF4FF
+text-color=#0D3B66
+border-color=#0D3B66
+
+[urgency=normal]
+background-color=#FFF4E6
+text-color=#D35400
+border-color=#D35400
+
+[urgency=high]
+background-color=#FFEAEA
+text-color=#8B0000
+border-color=#8B0000
