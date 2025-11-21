@@ -1,0 +1,11 @@
+width = 100%
+height = 100%
+border-width = 0
+outline-width = 0
+padding-left = 35%
+padding-top = 18%
+result-spacing = 25
+num-results = 12
+font = Source Code Pro Medium
+font-size = 30
+background-color = #000A
