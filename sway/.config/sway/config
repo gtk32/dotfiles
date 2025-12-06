@@ -8,7 +8,7 @@ set $term kitty
 set $menu exec /usr/bin/albert toggle
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output DP-1 bg /home/geert/Pictures/wallpapers/river_valley.jpg fill
+output DP-1 bg /home/geert/Pictures/wallpapers/a_music_stand_with_a_book_on_it.jpg fill
 
 # Set screen resolution (DP-1 pos 2560,0)
 output DP-1 resolution 3840x2160@160Hz scale 2
@@ -126,7 +126,7 @@ workspace 10 output DP-1
 bindsym $mod+h splith
 bindsym $mod+v splitv
 
-# Switch the current container between different layout styles
+# Switch the current container between different layout styles ('P', '[]' & ']')
 bindcode $mod+34 layout stacking
 bindcode $mod+35 layout tabbed
 bindcode $mod+33 layout toggle split
@@ -198,7 +198,7 @@ bar {
 }
 
 ###---Alternative keybindings---#
-bindsym Mod1+b exec flatpak run one.ablaze.floorp
+bindsym Mod1+b exec flatpak run app.zen_browser.zen
 bindsym Mod1+m exec spotify-launcher
 bindsym Mod1+n exec /usr/bin/netbird-ui
 bindsym Mod1+c exec qalculate-gtk
