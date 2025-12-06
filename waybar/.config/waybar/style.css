@@ -1,1 +1,80 @@
-../../Documents/Projects/dotfiles/waybar/.config/waybar/style.css
+@import url("/home/geert/.config/waybar/colors/monokai.css");
+
+* {
+  min-height: 24pt;
+  margin: 0;
+  padding: 0;
+  font-family: "RobotoMono Nerd Font";
+  font-size: 16pt;
+}
+
+
+label {
+  font-family: "RobotoMono Nerd Font";
+}
+
+window#waybar {
+    background: @bg;
+    color: @fg;
+}
+
+#workspaces {
+    background-color: @bg;
+    color: @dark-fg;
+    font-family: "RobotoMono Nerd Font";
+    padding: 0 5px;
+    margin: 1px 2px;
+}
+
+#workspaces button {
+    background-color: @bg;
+    color: @fg;
+    font-family: "RobotoMono Nerd Font";
+    padding: 0 5px;
+    margin: 1px 2px;
+}
+
+#workspaces button:hover {
+    color: @teal;
+    padding: 0 5px;
+    margin: 1px 2px;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    background: @red;
+    color: @bg;
+    font-weight: bold;
+    padding: 0 5px;
+    margin: 1px 2px;
+}
+
+/* #weather { */
+/*     color: @peach; */
+/*     border-bottom: 2px solid @peach; */
+/*     padding: 0 5px; */
+/*     margin: 1px 2px; */
+/* } */
+
+#pulseaudio {
+    color: @fg;
+    border-bottom: 2px solid @lavender;
+    font-family: "RobotoMono Nerd Font";
+    padding: 0 5px;
+    margin: 1px 2px;
+}
+
+#tray {
+    color: @fg;
+    border-bottom: 2px solid @blue;
+    padding: 0 5px;
+    margin: 1px 2px;
+}
+
+
+#clock {
+    color: @fg;
+    border-bottom: 2px solid @gray2;
+    padding: 0 5px;
+    margin: 1px 2px;
+}

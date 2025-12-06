@@ -71,4 +71,4 @@ forecast=${forecast::-3}
 
 # Output for Waybar
 echo "$icon $temp°"
-echo "{\"Forcast\": \"$forecast\"}"
+echo "{\"Forecast\": \"$forecast\"}"

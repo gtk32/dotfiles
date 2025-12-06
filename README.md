@@ -29,3 +29,5 @@ stow -v --target="$HOME" --adopt kitty
 ```
 stow -v -D --target="$HOME" satty
 ```
+stow -n -v -t ~ waybar # Backuped de waybar directory *(nette manier)
+

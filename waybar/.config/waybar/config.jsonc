@@ -1,1 +1,64 @@
-../../Documents/Projects/dotfiles/waybar/.config/waybar/config
+{
+	"layer": "top",
+	"position": "true",
+	"exclusive-zone": true,
+	"autohide": false,
+		
+  "modules-left": [
+    "sway/workspaces",
+    "sway/window"
+  ],
+	
+	"modules-center": [
+		"custom/weather"
+	],
+	
+	"modules-right": [
+		"tray",
+		"pulseaudio",
+    "clock"
+	],
+
+  // Modules left
+  "sway/workspaces": {
+		"on-click": "activate",
+    "disable-scroll": false,
+    "all-outputs": false
+  },
+
+  "sway/window": {
+    "format": "{title}",
+    "max-length": 50
+  },
+		
+  // Modules middle
+  "custom/weather": {
+    "exec": "/home/geert/.config/waybar/scripts/weather.sh",
+    "interval": 900,
+    "format": "{}",
+    "tooltip": true
+  },
+
+  // Modules right
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10
+  },
+
+  "clock": {
+    "format": "{:%H:%M} ",
+    "format-alt": "{:%A, %d-%m-%Y} ",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "on-click-right": "kitty --class calcure calcure"
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-muted": " ",
+    "format-icons": {
+      "headphones": " ",
+      "default": [" ", " "]
+    },
+    "on-click": "kitty --class pulsemixer pulsemixer"
+  },
+}
