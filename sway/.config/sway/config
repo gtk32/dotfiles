@@ -151,11 +151,15 @@ default_border pixel 3
 # Gaps
 hide_edge_borders smart
 
-# Colors
-client.focused              #4a7fbf  #4a7fbf  #dddddd  #4a7fbf  #4a7fbf
-client.focused_inactive     #444444  #444444  #dddddd  #444444  #444444
-client.unfocused            #31363b  #31363b  #dddddd  #31363b  #31363b
-client.urgent               #da4453  #da4453  #da4453  #da4453  #da4453
+# Colors (Monokai)
+client.focused              #66D9EF  #66D9EF  #F8F8F2  #66D9EF  #66D9EF
+client.focused_inactive     #75715E  #75715E  #F8F8F2  #75715E  #75715E
+client.unfocused            #3E3D32  #3E3D32  #F8F8F2  #3E3D32  #3E3D32
+client.urgent               #F92672  #F92672  #F8F8F2  #F92672  #F92672
+# client.focused              #4a7fbf  #4a7fbf  #dddddd  #4a7fbf  #4a7fbf
+# client.focused_inactive     #444444  #444444  #dddddd  #444444  #444444
+# client.unfocused            #31363b  #31363b  #dddddd  #31363b  #31363b
+# client.urgent               #da4453  #da4453  #da4453  #da4453  #da4453
 
 
 ###---Resizing containers---###
