@@ -6,8 +6,8 @@
 	"autohide": false,
 		
   "modules-left": [
-    "sway/workspaces",
-    "sway/window"
+    "hyprland/workspaces",
+    "hyprland/window"
   ],
 	
 	"modules-center": [
@@ -23,13 +23,13 @@
 	],
 
   // Modules left
-  "sway/workspaces": {
+  "hyprland/workspaces": {
 		"on-click": "activate",
     "disable-scroll": false,
     "all-outputs": false
   },
 
-  "sway/window": {
+  "hyprland/window": {
     "format": "{title}",
     "max-length": 50
   },
@@ -55,13 +55,13 @@
       "headphones": " ",
       "default": [" ", " "]
     },
-    "on-click": "kitty --class pulsemixer pulsemixer"
+    "on-click": "kitty --class pulsemixer --config ~/.config/kitty/pulsemixer.conf pulsemixer"
   },
   
   "cpu": {
     "interval": 5,
     "format": "󰍛 {usage}%",
-    "on-click": "kitty --class cpu --config ~/.config/kitty/btop.conf btop"
+    "on-click": "kitty --class btop --config ~/.config/kitty/btop.conf btop"
   },
 
   "network": {

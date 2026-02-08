@@ -24,6 +24,8 @@ return {
         "jq",
         "json",
         "lua",
+        "markdown",
+        "python",
         "regex",
         "ssh_config",
         "sway",

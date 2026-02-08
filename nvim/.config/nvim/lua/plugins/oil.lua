@@ -1,5 +1,4 @@
 return {
-  {
     'stevearc/oil.nvim',
     -- opts = {},
     dependencies = {
@@ -16,5 +15,4 @@ return {
       -- Keybinds
       vim.keymap.set("n", "<leader>cd", vim.cmd.Oil)
     end,
-  },
 }

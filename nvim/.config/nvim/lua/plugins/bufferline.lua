@@ -1,5 +1,4 @@
 return {
-  {
     'akinsho/bufferline.nvim',
     version = "*",
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -17,5 +16,4 @@ return {
       vim.keymap.set('n', '<C-.>', '<Cmd>BufferLineCycleNext<CR>', { silent = true })
       vim.keymap.set('n', '<C-,>', '<Cmd>BufferLineCyclePrev<CR>', { silent = true })
     end
-  },
 }

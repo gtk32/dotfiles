@@ -20,9 +20,12 @@ alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | gr
 alias ping='ping -c4'
 alias journalctl="journalctl -b 0"
 alias cat="bat -p --theme='1337'"
-alias ip="ip -c a"
 alias ollama="podman start ollama && podman start open-webui"
-alias glow="glow -p"
+alias glow="glow -t"
+alias gcb="git branch --show-current"
+alias gab="git branch --all"
+alias lg='/usr/bin/lazygit'
+alias fabric='/usr/bin/fabric-ai'
 
 # Syntax highlighting Manpager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -48,7 +51,7 @@ alias transfer="kitty +kitten transfer --permissions-bypass"
 eval "$(starship init bash)"
 
 # Zoxide autojump
-eval "$(zoxide init bash)"
+eval "$(zoxide init --cmd cd bash)"
 
 # Yazi filemanager
 function y() {

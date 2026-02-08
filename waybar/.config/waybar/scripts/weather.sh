@@ -42,7 +42,7 @@ response=$(curl -s "https://api.open-meteo.com/v1/forecast?latitude=$LAT&longitu
 
 temp=$(echo "$response" | jq '.current_weather.temperature' | xargs printf "%.1f")
 code=$(echo "$response" | jq '.current_weather.weathercode')
-current_icon="${ICON_MAP[$current_code]}"
+current_icon="${ICON_MAP[$code]}"
 [ -z "$current_icon" ] && current_icon="❓"
 
 # 5-day forecast

@@ -14,10 +14,12 @@ output DP-1 bg /home/geert/Pictures/wallpapers/a_music_stand_with_a_book_on_it.j
 output DP-1 resolution 3840x2160@160Hz scale 2
 
 # Default floating windows
-for_window [app_id="calcure"] floating enable, border pixel 2, resize set 1000 600
-for_window [app_id="qalculate-gtk"] floating enable, border pixel 2
+for_window [app_id="calcure"] floating enable, border pixel 1, resize set 1000 500
+for_window [app_id="pulsemixer"] floating enable, border pixel 1, resize set 1500 600
+for_window [app_id="cpu"] floating enable, border pixel 1, resize set 1500 600
+for_window [app_id="wifi"] floating enable, border pixel 1, resize set 1000 600
+for_window [app_id="qalculate-gtk"] floating enable
 for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="pulsemixer"] floating enable, resize set 1500 800
 
 # Set font
 font pango:RobotoMono Nerd Font Mono 16
@@ -156,11 +158,6 @@ client.focused              #66D9EF  #66D9EF  #F8F8F2  #66D9EF  #66D9EF
 client.focused_inactive     #75715E  #75715E  #F8F8F2  #75715E  #75715E
 client.unfocused            #3E3D32  #3E3D32  #F8F8F2  #3E3D32  #3E3D32
 client.urgent               #F92672  #F92672  #F8F8F2  #F92672  #F92672
-# client.focused              #4a7fbf  #4a7fbf  #dddddd  #4a7fbf  #4a7fbf
-# client.focused_inactive     #444444  #444444  #dddddd  #444444  #444444
-# client.unfocused            #31363b  #31363b  #dddddd  #31363b  #31363b
-# client.urgent               #da4453  #da4453  #da4453  #da4453  #da4453
-
 
 ###---Resizing containers---###
 
@@ -190,16 +187,10 @@ bindsym Escape mode "default"
 exec /usr/bin/lxpolkit
 exec mako
 exec wlsunset -l 52.2 -L 4.5
-exec nm-applet --indicator
 exec udiskie
-exec /usr/bin/albert
 exec ~/.local/bin/check_vpn_connection.sh
-
-###---Status Bar---###
-
-bar {
-    swaybar_command waybar
-}
+exec /usr/bin/albert
+exec /usr/bin/waybar --config /home/geert/.config/waybar/config-sway.jsonc --style /home/geert/.config/waybar/style.css
 
 ###---Alternative keybindings---#
 bindsym Mod1+b exec flatpak run app.zen_browser.zen

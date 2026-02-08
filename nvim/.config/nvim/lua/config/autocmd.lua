@@ -16,3 +16,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank({ timeout = 200, visual = true })
 	end,
 })
+
+-- Create an autocommand group for custom deletions
+vim.api.nvim_create_augroup("CustomDeleteWithoutYank", { clear = true })
+
+-- Map Shift+D (D) and Shift+C (C) in normal mode to delete to black hole register
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = "CustomDeleteWithoutYank",
+    callback = function()
+        -- 'D' deletes to end of line, 'C' deletes to end of line and enters insert
+        vim.keymap.set('n', 'D', '"_D', { noremap = true, silent = true })
+        vim.keymap.set('n', 'C', '"_C', { noremap = true, silent = true })
+    end
+})

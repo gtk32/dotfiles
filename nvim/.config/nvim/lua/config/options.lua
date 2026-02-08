@@ -22,7 +22,7 @@ vim.opt.background = "dark"
 vim.opt.signcolumn = "yes"
 
 -- Clipboard
-vim.opt.clipboard:append("unnamedplus")
+vim.opt.clipboard = "unnamedplus"
 
 -- Backspace
 vim.opt.backspace = "indent,eol,start"
