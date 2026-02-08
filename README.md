@@ -8,26 +8,25 @@
 - [Tofi](https://github.com/philj56/tofi)
 - [Satty](https://github.com/Satty-org/Satty)
 
-## Usefull commands
+# Howto Guide
 
-**Run stow for kitty in dry-run mode**
+**Create destination folder in your repository**
 ```
-stow -n -v --target="$HOME" kitty
-```
-
-**Run stow for kitty**
-```
-stow -v --target="$HOME" kitty
+mkdir -p ~/Documents/<your_project_location_path>/dotfiles/<application>/.config/<application>
 ```
 
-**With this option, you don't need to remove the original file. It will overwrite**
+**Move your existing config files to your new location**
 ```
-stow -v --target="$HOME" --adopt kitty
+mv ~/.config/<application>/* ~/Documents/<your_project_location_path>/dotfiles/<application>/.config/<application>
 ```
 
-**"Unstow" / Remove symlinks. This will remove the ~/.config/satty/config.toml (because it is symlinked)**
+**Remove empty location**
 ```
-stow -v -D --target="$HOME" satty
+rmdir ~/.config/<application>
 ```
-stow -n -v -t ~ waybar # Backuped de waybar directory *(nette manier)
+
+**'Stow' your dotfiles (i.e. create symlinks)**
+```
+stow -vt ~ <application> (under ~/Documents/Projects/dotfiles)
+```
 
