@@ -1,39 +1,30 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  enabled = true,
+  version = false, -- Use the latest (main branch)
   build = ":TSUpdate",
-  dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", },
+  event = { "BufReadPost", "BufNewFile" },
   config = function()
-    local configs = require("nvim-treesitter.configs")
+    local configs = require("nvim-treesitter")
+
     configs.setup({
+      ensure_installed = { 
+        "lua", "vim", "caddy", "query", "markdown", "markdown_inline",
+        "bash", "yaml", "ansible", "python", "json", "css", "html", 
+        "toml", "ini"
+      },
+      
       highlight = {
         enable = true,
-        additional_vim_regex_highlighting = { "yaml.ansible" },
+        additional_vim_regex_highlighting = false,
       },
+      
       indent = { enable = true },
-      autotag = { enable = true },
-      ensure_installed = {
-        "bash",
-        "caddy",
-        "css",
-        "diff",
-        "dockerfile",
-        "html",
-        "ini",
-        "jinja",
-        "jq",
-        "json",
-        "lua",
-        "markdown",
-        "python",
-        "regex",
-        "ssh_config",
-        "sway",
-        "terraform",
-        "toml",
-        "vim",
-        "vimdoc",
-      }
     })
-  end
+    
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function()
+        pcall(vim.treesitter.start)
+      end,
+    })
+  end,
 }
