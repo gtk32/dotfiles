@@ -7,6 +7,7 @@
 - [Waybar](https://github.com/Alexays/Waybar)
 - [Tofi](https://github.com/philj56/tofi)
 - [Satty](https://github.com/Satty-org/Satty)
+- [Hyprland](https://hypr.land/)
 
 # Howto Guide
 
@@ -27,6 +28,7 @@ rmdir ~/.config/<application>
 
 **'Stow' your dotfiles (i.e. create symlinks)**
 ```
-stow -vt ~ <application> (under ~/Documents/Projects/dotfiles)
+stow <application> # If .stowrc configuration file has been made
+stow -vt ~ <application> # under ~/Documents/Projects/dotfiles
 ```
 
