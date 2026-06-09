@@ -9,6 +9,9 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 fi
 export PATH
 
+# Source ~/.bash_scripts
+source ~/.bash_scripts
+
 # Aliases
 alias vim='nvim'
 alias ls='exa --icons'
@@ -26,21 +29,14 @@ alias gcb="git branch --show-current"
 alias gab="git branch --all"
 alias lg='/usr/bin/lazygit'
 alias fabric='/usr/bin/fabric-ai'
+alias scale='/home/geert/Downloads/Git/Waifu2x-ncnn-vulkan/waifu2x-ncnn-vulkan-20250915-linux/waifu2x-ncnn-vulkan'
 
 # Syntax highlighting Manpager
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export MANROFFOPT="-c"
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export EDITOR="nvim"
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
-
-# Nnn settings
-alias nnn="nnn -c"
-
-export NNN_FIFO="/tmp/nnn.fifo"
-export NNN_PLUG="o:fzopen;p:preview-tui;z:autojump"
-export NNN_OPENER="/home/geert/.config/nnn/plugins/nuke"
-export EDITOR="nvim"
 
 # Aliases for kitty kittens
 alias icat="kitty +kitten icat"
@@ -53,13 +49,7 @@ eval "$(starship init bash)"
 # Zoxide autojump
 eval "$(zoxide init --cmd cd bash)"
 
-# Yazi filemanager
-function y() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-  yazi "$@" --cwd-file="$tmp"
-  IFS= read -r -d '' cwd <"$tmp"
-  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-  rm -f -- "$tmp"
-}
+# Create the Hotkey (Ctrl+P)
+bind -x '"\C-p": pj'
 
 unset rc

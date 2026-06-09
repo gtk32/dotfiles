@@ -13,7 +13,8 @@ return {
         },
       }
       -- Keybinds
-      vim.keymap.set('n', '<C-.>', '<Cmd>BufferLineCycleNext<CR>', { silent = true })
-      vim.keymap.set('n', '<C-,>', '<Cmd>BufferLineCyclePrev<CR>', { silent = true })
+      vim.keymap.set('n', '\x1b[9;5u', '<C-Tab>', { remap = true }) -- Hack for Kitty
+      vim.keymap.set('n', '<C-Tab>', '<Cmd>BufferLineCycleNext<CR>', { silent = true })
+      vim.keymap.set('n', '<C-q>', '<Cmd>bdelete<CR>', { silent = true })
     end
 }
