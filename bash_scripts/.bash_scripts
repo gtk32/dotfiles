@@ -1,0 +1,36 @@
+# Jump to projects via fuzzy finder
+pj() {
+    # 1. Define your search path
+    local project_path=$HOME/Documents/Projects
+
+    # 2. Find directories, pipe to fzf
+    local selection=$(find "$project_path" -mindepth 1 -maxdepth 1 -type d ! -name ".*" | fzf \
+        --height 50% \
+        --reverse \
+        --header="Open Project in Nvim" )
+
+    # 3. If a selection was made, cd into it
+    if [ -n  ]; then
+        cd "$selection"
+    fi
+}
+
+# Access encrypted files
+ge() {
+  local file="$1"
+  local tmp
+
+  tmp=$(mktemp) || return 1
+
+  # decrypt naar temp
+  gpg -d "$file" > "$tmp" || { rm -f "$tmp"; return 1; }
+
+  # edit
+  pluma "$tmp"
+
+  # opnieuw encrypten (BELANGRIJK: overwrite correct)
+  gpg -c --yes -o "$file" "$tmp" || { rm -f "$tmp"; return 1; }
+
+  # cleanup
+  shred -u "$tmp"
+}
