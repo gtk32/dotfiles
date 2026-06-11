@@ -1,86 +1,176 @@
-@import url("/home/geert/.config/waybar/colors/monokai.css");
+/* ============================================================
+ * Waybar configuration
+ * ============================================================ */
+
+@import "waybar.css";
+
+/* ── Reset & globale stijl ─────────────────────────────────── */
 
 * {
+  /* background-color: transparent; */
+  background-color: @transparent;
+  color: @foreground;
+  border: none;
+  border-radius: 0;
   min-height: 0;
-  margin: 0;
-  padding: 0;
-  font-family: "RobotoMono Nerd Font";
-  font-size: 14pt;
+  font-family: "RobotoMono Nerd Font", monospace;
+  font-size: 12px;
 }
 
-label {
-  font-family: "RobotoMono Nerd Font";
+menu{
+  background-color: @background_alt;
+  color: @foreground;
+  padding: 4px 12px;
+  transition: background-color 0.15s ease;
+}
+
+menu menuitem:hover {
+  background-color: @background;
+  color: @foreground;
+  border: 1px solid @border;
+}
+
+#window {
+    margin-left: 10px;
+    font-weight: bold;
 }
 
 window#waybar {
-    background: @bg;
-    color: @fg;
+  background-color: @background;
+  color: @foreground;
 }
 
+window#waybar.empty {
+  background-color: transparent;
+}
+
+/* ── Bar layout ────────────────────────────────────────────── */
+
+.modules-left {
+  margin-left: 8px;
+}
+
+.modules-right {
+  margin-right: 8px;
+}
+
+/* ── Workspaces ────────────────────────────────────────────── */
+
 #workspaces {
-    background-color: @bg;
-    color: @dark-fg;
-    font-family: "RobotoMono Nerd Font";
-    padding: 0 5px;
-    margin: 1px 2px;
+  background-color: transparent;
 }
 
 #workspaces button {
-    background-color: @bg;
-    color: @fg;
-    font-family: "RobotoMono Nerd Font";
-    padding: 0 5px;
-    margin: 1px 2px;
+  background: transparent;
+  background-color: transparent;
+  border: none;
+  border-radius: 2px;
+  box-shadow: none;
+  text-shadow: none;
+  font-family: "RobotoMono Nerd Font", monospace;
+  font-size: 22px;
+  font-weight: bold;
+  color: @foreground_dim;
+  padding: 1px 7px;
+  margin: 3px 2px;
+  min-width: 9px;
+  min-height: 0;
+  opacity: 1;
+  transition: all 0.15s ease;
+}
+
+/* Actieve workspace — gevuld blokje als achtergrond */
+#workspaces button.active {
+  color: @background;
+  font-weight: bold;
+  opacity: 1;
+  padding: 1px 7px;
+  margin: 3px 2px;
+}
+
+#workspaces button.empty {
+  color: @foreground_dim;
+  opacity: 0.45;
+  padding: 1px 7px;
+  margin: 3px 2px;
 }
 
 #workspaces button:hover {
-    color: @teal;
-    padding: 0 5px;
-    margin: 1px 2px;
+  font-weight: bold;
+  background-color: @surface;
+  color: @foreground;
+  opacity: 1;
 }
 
-#workspaces button.focused,
-#workspaces button.active {
-    background: @red;
-    color: @bg;
-    font-weight: bold;
-    padding: 0 5px;
-    margin: 1px 2px;
-}
+/* ── Generiek ──────────────────────────────────────────────── */
+
+#tray,
+#clock,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+
+/* ── Tray ──────────────────────────────────────────────────── */
 
 #tray {
-    color: @fg;
-    border-bottom: 2px solid @blue;
-    padding: 0 5px;
-    margin: 1px 2px;
+  margin-right: 16px;
 }
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @orange;
+}
+
+/* ── Netwerk ───────────────────────────────────────────────── */
 
 #network {
-    color: @fg;
-    border-bottom: 2px solid @green;
-    padding: 0 5px;
-    padding-right: 12px;
-    margin: 1px 2px;
+  margin-right: 20px;
 }
 
-#pulseaudio {
-    color: @fg;
-    border-bottom: 2px solid @lavender;
-    font-family: "RobotoMono Nerd Font";
-    padding: 0 5px;
-    margin: 1px 2px;
+#network.disconnected {
+  color: @red;
 }
 
-#cpu {
-    color: @fg;
-    border-bottom: 2px solid @pink;
-    padding: 0 5px;
-    margin: 1px 2px;
+/* ── Volume / audio ────────────────────────────────────────── */
+
+#pulseaudio.muted {
+  color: @red;
 }
 
-#custom-weather {
-    color: @fg;
-    border-bottom: 2px solid @gray2;
-    padding: 0 5px;
-    margin: 1px 2px;
+/* ── CPU ───────────────────────────────────────────────────── */
+
+#cpu.warning {
+  color: @yellow;
+}
+
+#cpu.critical {
+  color: @red;
+}
+
+/* ── Temperatuur ───────────────────────────────────────────── */
+
+#temperature.critical {
+  color: @red;
+}
+
+/* ── Klok ──────────────────────────────────────────────────── */
+
+#clock {
+  color: @foreground;
+}
+
+
+/* ── Tooltip ───────────────────────────────────────────────── */
+
+tooltip {
+  background-color: @background_alt;
+  border: 1px solid @border;
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: @foreground;
+}
+
+tooltip label {
+  color: @foreground;
 }

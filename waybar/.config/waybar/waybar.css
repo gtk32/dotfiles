@@ -1,0 +1,22 @@
+/* One Dark Pro — Omarchy-stijl kleurenpalet voor Waybar
+ * Gebaseerd op het officiële One Dark Pro kleurenschema
+ * Zet dit bestand op: ~/.config/waybar/waybar.css
+ * En importeer het bovenaan je style.css
+ */
+
+@define-color background        #282c34;   /* Hoofd achtergrond */
+@define-color background_alt    #21252b;   /* Iets donkerder variant */
+@define-color surface           #2c313a;   /* Module achtergrond / hover */
+@define-color border            #3b4048;   /* Subtiele randen */
+@define-color foreground        #abb2bf;   /* Standaard tekst */
+@define-color foreground_dim    #636d83;   /* Gedimde/inactieve tekst */
+@define-color accent            #61afef;   /* Blauw — primaire accentkleur */
+
+/* Syntaxkleuren (bruikbaar voor statusmodules) */
+@define-color red                #e06c75;   /* Fout / kritiek */
+@define-color orange             #d19a66;   /* Waarschuwing */
+@define-color yellow             #e5c07b;   /* Aandacht */
+@define-color green              #98c379;   /* OK / actief */
+@define-color cyan               #56b6c2;   /* Info */
+@define-color blue               #61afef;   /* Primair */
+@define-color purple             #c678dd;   /* Speciaal */

@@ -2,6 +2,7 @@
 pj() {
     # 1. Define your search path
     local project_path=$HOME/Documents/Projects
+    local selection
 
     # 2. Find directories, pipe to fzf
     local selection=$(find "$project_path" -mindepth 1 -maxdepth 1 -type d ! -name ".*" | fzf \
