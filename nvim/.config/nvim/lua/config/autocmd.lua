@@ -1,10 +1,36 @@
--- Force filetype for all YAML files to be Ansible
--- This creates a dedicated group to ensure this rule is not overridden.
-local ansible_ft_group = vim.api.nvim_create_augroup('AnsibleFiletype', { clear = true })
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  group = ansible_ft_group,
-  pattern = { '*.yaml', '*.yml' },
-  command = 'set filetype=yaml.ansible',
+-- Smart Ansible YAML detection: only mark a YAML file as Ansible when it
+-- contains Ansible markers or lives in a typical Ansible path (roles/, tasks/,
+-- handlers/, etc.). Regular YAML (compose, CI, k8s) stays plain yaml.
+-- NOTE: this entry replaces the builtin yml/yaml detection, so the fallback
+-- must be an explicit 'yaml' (returning nil would leave the filetype unset).
+local function detect_ansible(path, bufnr)
+  -- Path-based detection (playbooks, roles, molecule, etc.)
+  if path then
+    local p = path:lower()
+    if p:match('/roles/') or p:match('/playbooks/') or p:match('/tasks/')
+      or p:match('/handlers/') or p:match('/defaults/') or p:match('/molecule/')
+      or p:match('/site%.yml') or p:match('/site%.yaml') then
+      return 'yaml.ansible'
+    end
+  end
+
+  -- Content-based detection (scan the first 80 lines)
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 80, false)
+  for _, line in ipairs(lines) do
+    if line:match('^%s*%-?%s*hosts:') or line:match('^%s*tasks:')
+      or line:match('^%s*become:') or line:match('^%s*import_playbook:')
+      or line:match('^%s*roles:') or line:match('^%s*ansible_builtin') then
+      return 'yaml.ansible'
+    end
+  end
+  return 'yaml' -- fall back to plain yaml
+end
+
+vim.filetype.add({
+  extension = {
+    yml = detect_ansible,
+    yaml = detect_ansible,
+  },
 })
 
 -- highlight yank
@@ -17,15 +43,4 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Create an autocommand group for custom deletions
-vim.api.nvim_create_augroup("CustomDeleteWithoutYank", { clear = true })
 
--- Map Shift+D (D) and Shift+C (C) in normal mode to delete to black hole register
-vim.api.nvim_create_autocmd("BufEnter", {
-    group = "CustomDeleteWithoutYank",
-    callback = function()
-        -- 'D' deletes to end of line, 'C' deletes to end of line and enters insert
-        vim.keymap.set('n', 'D', '"_D', { noremap = true, silent = true })
-        vim.keymap.set('n', 'C', '"_C', { noremap = true, silent = true })
-    end
-})
