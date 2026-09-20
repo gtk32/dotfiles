@@ -17,7 +17,7 @@ hl.window_rule({
 -- No gaps or borders when only one tiled window, and on workspace 1.
 -- https://wiki.hypr.land/configuring/core/rules/workspace-rules/
 for _, ws in ipairs({ "w[tv1]", "f[1]", "1" }) do
-  hl.workspace_rule({ workspace = ws, gaps_in = 0, gaps_out = 0, border_size = 0, rounding = false })
+  hl.workspace_rule({ workspace = ws, gaps_in = 0, gaps_out = 0, border_size = 0, no_rounding = true })
 end
 
 --------------
