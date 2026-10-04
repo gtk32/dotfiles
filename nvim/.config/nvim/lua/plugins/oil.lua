@@ -13,6 +13,6 @@ return {
         },
       })
       -- Keybinds
-      vim.keymap.set("n", "<leader>cd", vim.cmd.Oil)
+      vim.keymap.set("n", "<leader>cd", vim.cmd.Oil, { desc = "Open Oil file manager" })
     end,
 }

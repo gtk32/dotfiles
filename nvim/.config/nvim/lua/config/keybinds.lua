@@ -11,3 +11,7 @@ vim.keymap.set('n', '<C-PageDown>', '<C-w>j', { desc = 'Move to split below' })
 -- Delete/change to end of line without yanking into the default register
 vim.keymap.set('n', 'D', '"_D', { silent = true, desc = 'Delete to EOL (no yank)' })
 vim.keymap.set('n', 'C', '"_C', { silent = true, desc = 'Change to EOL (no yank)' })
+
+-- Floating keybinding cheatsheet (toggle)
+vim.keymap.set('n', '<leader>F1', function() require('config.cheatsheet').open() end,
+  { desc = 'Keybinding cheatsheet' })
