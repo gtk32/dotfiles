@@ -1,3 +1,4 @@
 .ansible
 .stowrc
 waybar/.config/waybar/scripts/weather.py
+AGENTS.md
