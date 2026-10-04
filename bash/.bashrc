@@ -48,7 +48,7 @@ eval "$(starship init bash)"
 # Zoxide autojump
 eval "$(zoxide init --cmd cd bash)"
 
-# Create the Hotkey (Ctrl+P)
-bind -x '"\C-p": pj'
+# Interactive navigation helpers (pj: Ctrl+P project jump)
+[[ -f ~/.bashscripts ]] && source ~/.bashscripts
 
 unset rc
