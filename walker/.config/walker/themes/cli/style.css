@@ -1,5 +1,8 @@
+/* Walker theme: cli.
+   Keep in sync with themes/powermenu/style.css — only difference: font-size (18px vs 25px). */
+
 /* Color definitions */
-@define-color selected-text #f92672; /* #7dcfff; */
+@define-color selected-text #f92672;
 @define-color text #cfc9c2;
 @define-color base #1a1b26;
 @define-color border #f92672;
@@ -8,9 +11,6 @@
 
 * {
   all: unset;
-}
-
-* {
   font-family: monospace;
   font-size: 18px;
   color: @text;
@@ -34,12 +34,6 @@ scrollbar {
   border: 2px solid @border;
 }
 
-.preview-box {
-}
-
-.box {
-}
-
 .search-container {
   background: @base;
   padding: 10px;
@@ -49,35 +43,10 @@ scrollbar {
   opacity: 0.5;
 }
 
-.input {
-}
-
 .input:focus,
 .input:active {
   box-shadow: none;
   outline: none;
-}
-
-.content-container {
-}
-
-.placeholder {
-}
-
-.scroll {
-}
-
-.list {
-}
-
-child,
-child > * {
-}
-
-child:hover .item-box {
-}
-
-child:selected .item-box {
 }
 
 child:selected .item-box * {
@@ -91,9 +60,6 @@ child:selected .item-box * {
 .item-text-box {
   all: unset;
   padding: 14px 0;
-}
-
-.item-text {
 }
 
 .item-subtext {
@@ -116,7 +82,4 @@ child:selected .item-box * {
   background: @background;
   padding: 10px;
   margin-top: 10px;
-}
-
-.preview {
 }

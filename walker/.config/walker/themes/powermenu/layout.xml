@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Walker theme: powermenu. Keep in sync with themes/cli/layout.xml (identical content). -->
 <interface>
   <requires lib="gtk" version="4.0"></requires>
   <object class="GtkWindow" id="Window">
