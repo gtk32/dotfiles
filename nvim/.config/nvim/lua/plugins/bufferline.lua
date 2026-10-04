@@ -14,7 +14,7 @@ return {
       }
       -- Keybinds
       vim.keymap.set('n', '\x1b[9;5u', '<C-Tab>', { remap = true }) -- Hack for Kitty
-      vim.keymap.set('n', '<C-Tab>', '<Cmd>BufferLineCycleNext<CR>', { silent = true })
-      vim.keymap.set('n', '<C-q>', '<Cmd>bdelete<CR>', { silent = true })
+      vim.keymap.set('n', '<C-Tab>', '<Cmd>BufferLineCycleNext<CR>', { silent = true, desc = 'Next buffer' })
+      vim.keymap.set('n', '<C-q>', '<Cmd>bdelete<CR>', { silent = true, desc = 'Close current buffer' })
     end
 }
