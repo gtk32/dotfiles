@@ -2,10 +2,10 @@
    Keep in sync with themes/cli/style.css — only difference: font-size (25px vs 18px). */
 
 /* Color definitions */
-@define-color selected-text #7dcfff;
+@define-color selected-text #f92672;
 @define-color text #cfc9c2;
 @define-color base #1a1b26;
-@define-color border #33ccff;
+@define-color border #f92672;
 @define-color foreground #cfc9c2;
 @define-color background #1a1b26;
 
