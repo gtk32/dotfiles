@@ -1,0 +1,42 @@
+# ~/.bashscripts — sourced from .bashrc (see the source line at its end).
+# Interactive navigation helpers. Requires: fzf (picker + bound keys), fd (dir scan).
+
+# ---------------------------------------------------------------------
+# pj — project jump: plain fuzzy list of directories, Enter to cd.
+# Ctrl+P opens the picker; `pj <query>` pre-fills the filter.
+# ---------------------------------------------------------------------
+
+PJ_DIRS=(
+    "$HOME/Documents/projects"   # full depth — your projects
+    "$HOME/.config"              # top level only (apps, not their guts)
+    "$HOME/.config/nvim"         # full depth — nvim config
+)
+
+pj() {
+    local list="" d
+    for d in "${PJ_DIRS[@]}"; do
+        [[ -d $d ]] || continue
+        if [[ $d == "$HOME/.config" ]]; then
+            # top level only: show the apps, not their entire subtree
+            list+="$(fd . "$d" --type=dir --max-depth=1 --full-path 2>/dev/null)"$'\n'
+        else
+            # full depth: projects and the nvim config
+            list+="$(fd . "$d" --type=dir --max-depth=6 --full-path 2>/dev/null)"$'\n'
+        fi
+    done
+
+    # fail loudly instead of opening an empty picker
+    [[ -z ${list//[[:space:]]/} ]] && {
+        echo "pj: no directories found — check PJ_DIRS in ~/.bashscripts" >&2
+        return 1
+    }
+
+    local selected
+    selected=$(printf '%s\n' "$list" | grep -v '^$' | sed "s|^$HOME/||" \
+        | fzf --query="$*")
+    [[ -n $selected ]] && cd "$HOME/$selected"
+}
+
+# Ctrl+P opens the picker (bind -x runs in this shell, so cd persists).
+# Kept last in the file: a later `bind` would need to come after this one.
+bind -x '"\C-p": pj'
