@@ -2,3 +2,5 @@
 .stowrc
 waybar/.config/waybar/scripts/weather.py
 AGENTS.md
+hyprland/.config/hypr/hyprland.conf.bak
+walker/.config/walker/config.toml.back
