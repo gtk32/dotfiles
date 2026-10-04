@@ -1,20 +1,25 @@
-# ~/.bashscripts — sourced from .bashrc (see the source line at its end).
-# Interactive navigation helpers. Requires: fzf (picker + bound keys), fd (dir scan).
+# ~/.bashscripts - sourced from .bashrc (source line at the end of .bashrc).
+# Interactive navigation helpers. Requires: fzf (picker), fd (dir scan).
 
 # ---------------------------------------------------------------------
-# pj — project jump: plain fuzzy list of directories, Enter to cd.
-# Ctrl+P opens the picker; `pj <query>` pre-fills the filter.
+# pj - project jump: pick a directory in fzf, you are cd'd there.
+# Ctrl+P -> projects  (~/Documents/Projects, full depth)
+# Alt+P  -> configs   (~/.config top level + ~/.config/nvim, full depth)
+# Typed use with pre-fill query: pj nvim / pj_conf kitty
+#
+# The binds are readline MACROS that type the function name + Enter.
+# pj then runs as a normal command, so bash draws a fresh prompt
+# afterwards (starship re-renders with the new directory). No bind -x
+# stale-prompt issues, no visible command text, fully automatic.
 # ---------------------------------------------------------------------
 
-PJ_DIRS=(
-    "$HOME/Documents/projects"   # full depth — your projects
-    "$HOME/.config"              # top level only (apps, not their guts)
-    "$HOME/.config/nvim"         # full depth — nvim config
-)
+PJ_DIRS_PROJECTS=("$HOME/Documents/Projects")
+PJ_DIRS_CONFIG=("$HOME/.config" "$HOME/.config/nvim")
 
-pj() {
+# build the newline-separated candidate list for the given dirs
+_pj_scan() {
     local list="" d
-    for d in "${PJ_DIRS[@]}"; do
+    for d in "$@"; do
         [[ -d $d ]] || continue
         if [[ $d == "$HOME/.config" ]]; then
             # top level only: show the apps, not their entire subtree
@@ -24,19 +29,27 @@ pj() {
             list+="$(fd . "$d" --type=dir --max-depth=6 --full-path 2>/dev/null)"$'\n'
         fi
     done
-
-    # fail loudly instead of opening an empty picker
     [[ -z ${list//[[:space:]]/} ]] && {
-        echo "pj: no directories found — check PJ_DIRS in ~/.bashscripts" >&2
+        echo "pj: no directories found - check PJ_DIRS_* in ~/.bashscripts" >&2
         return 1
     }
+    printf '%s\n' "$list" | grep -v '^$'
+}
 
+pj() {
     local selected
-    selected=$(printf '%s\n' "$list" | grep -v '^$' | sed "s|^$HOME/||" \
-        | fzf --query="$*")
+    selected=$(_pj_scan "${PJ_DIRS_PROJECTS[@]}" | sed "s|^$HOME/||" | fzf --query="$*")
     [[ -n $selected ]] && cd "$HOME/$selected"
 }
 
-# Ctrl+P opens the picker (bind -x runs in this shell, so cd persists).
-# Kept last in the file: a later `bind` would need to come after this one.
-bind -x '"\C-p": pj'
+pj_conf() {
+    local selected
+    selected=$(_pj_scan "${PJ_DIRS_CONFIG[@]}" | sed "s|^$HOME/||" | fzf --query="$*")
+    [[ -n $selected ]] && cd "$HOME/$selected"
+}
+
+# Binds: type the function name + Enter (emacs keymap, bash's default;
+# if you ever switch to `set -o vi`, add vi-insert/vi-command variants).
+# \C-u discards whatever is half-typed on the line first.
+bind -m emacs-standard '"\C-p": "\C-upj\C-m"'
+bind -m emacs-standard '"\ep": "\C-upj_conf\C-m"'
