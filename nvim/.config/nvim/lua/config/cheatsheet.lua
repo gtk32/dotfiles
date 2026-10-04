@@ -1,5 +1,5 @@
 -- Floating cheatsheet with the most important keybindings.
--- Open with <leader>F1 (normal mode), close with q or <Esc>.
+-- Open with <leader>? (normal mode), close with q or <Esc>.
 -- Content is curated on purpose: only the bindings worth remembering.
 
 local M = {}
@@ -8,7 +8,7 @@ local sections = {
   {
     "CUSTOM / PLUGINS  (normal mode)",
     {
-      { "<leader>F1",     "this cheatsheet" },
+      { "<leader>?",      "open/close this cheatsheet" },
       { "<leader>ff",     "find files (mini.pick)" },
       { "<leader>fb",     "switch buffers (mini.pick)" },
       { "<leader>fg",     "grep live in files (mini.pick)" },
@@ -131,7 +131,7 @@ local function close()
 end
 
 function M.open()
-  -- Toggle: pressing <leader>F1 again closes the cheatsheet.
+  -- Toggle: pressing <leader>? again closes the cheatsheet.
   if win and vim.api.nvim_win_is_valid(win) then
     close()
     return
