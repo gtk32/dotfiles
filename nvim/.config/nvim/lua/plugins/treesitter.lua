@@ -43,7 +43,7 @@ return {
     })
 
     -- Install asynchronously, then retry buffers that opened before installation finished.
-    treesitter.install(parsers, { summary = true }):await(function(err, installed)
+    treesitter.install(parsers):await(function(err, installed)
       if err then
         vim.notify(tostring(err), vim.log.levels.ERROR, { title = "nvim-treesitter" })
       elseif not installed then
