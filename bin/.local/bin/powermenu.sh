@@ -5,6 +5,6 @@ choice=$(echo -e "$options" | walker --dmenu --theme powermenu --placeholder "Sy
 case "$choice" in
   "󰐥 Shutdown") systemctl poweroff ;;
   "󰜉 Reboot") systemctl reboot ;;
-  " Logout") hyprctl dispatch exit ;;
+  " Logout") hyprctl dispatch "hl.dsp.exit()" ;;
   "󰤄 Suspend") systemctl suspend ;;
 esac

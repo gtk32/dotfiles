@@ -2,7 +2,7 @@
 
 GNU [stow](https://www.gnu.org/software/stow/)-managed dotfiles for Arch Linux (also compatible with Fedora/macOS).
 
-Includes: bash, hyprland, kitty, mako, nvim, satty, starship, sway, tofi, waybar.
+Includes: bash, hyprland, kitty, mako, nvim, quickshell, satty, starship, sway, tofi, waybar.
 
 ## Layout
 
@@ -62,3 +62,24 @@ To undo (remove the symlinks again):
 stow -D -t ~ nvim   # unstow
 stow -R -t ~ nvim   # or restow in one step
 ```
+
+## Quickshell: extra setup after stowing
+
+The quickshell package (bar, launcher, power menu, notifications) needs two things that are deliberately **not** in this repo:
+
+1. **Weather location** in `weather.json` (git-ignored). Copy the example and fill in your coordinates:
+
+   ```bash
+   cp ~/.config/quickshell/weather.example.json ~/.config/quickshell/weather.json
+   # edit lat/lon; leave "apiKey" empty when using the keyring (step 2)
+   ```
+
+2. **OpenWeatherMap API key** in the keyring (needs `gnome-keyring` running and unlocked at login):
+
+   ```bash
+   secret-tool store --label="OpenWeatherMap" service openweathermap
+   ```
+
+   Quickshell reads it at startup with `secret-tool lookup service openweathermap`. As a fallback, an `"apiKey"` in `weather.json` also works.
+
+Start it with `qs -d` (e.g. from the Hyprland autostart). Launcher and power menu are toggled via `qs ipc call launcher toggle` and `qs ipc call powermenu toggle`.

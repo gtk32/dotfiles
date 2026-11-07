@@ -62,6 +62,10 @@ hl.config({
       natural_scroll = false,
     },
   },
+  -- HDR uit anders rendert Citrix niet.
+  render = {
+        cm_auto_hdr = 0,
+  },
 })
 
 -- 1:1 trackpad gestures.

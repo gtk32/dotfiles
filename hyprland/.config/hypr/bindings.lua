@@ -18,19 +18,18 @@ hl.bind(main_mod .. " + E", exec("hyprshutdown"), { description = "Quit Hyprland
 hl.bind(main_mod .. " + D", exec(apps.file_manager), { description = "File manager" })
 hl.bind(main_mod .. " + T", hl.dsp.window.float({ action = "toggle" }), { description = "Toggle floating" })
 hl.bind(main_mod .. " + R", exec("pkill waybar; " .. apps.waybar), { description = "Restart waybar" })
-hl.bind(main_mod .. " + Space", exec(apps.menu), { description = "Launcher" })
+hl.bind(main_mod .. " + Space", hl.dsp.exec_cmd("qs ipc call launcher toggle"))
 hl.bind("ALT + Tab", exec(apps.menu .. " -m windows"), { description = "Window switcher" })
 hl.bind(main_mod .. " + P", hl.dsp.window.pseudo({ action = "toggle" }), { description = "Pseudo-tiling" })
 hl.bind(main_mod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }), { description = "Fullscreen" })
-hl.bind(main_mod .. " + L", exec(apps.powermenu), { description = "Power menu" })
+hl.bind(main_mod .. " + L", hl.dsp.exec_cmd("qs ipc call powermenu toggle"))
 hl.bind("ALT + B", exec(apps.browser), { description = "Browser" })
 hl.bind("ALT + M", exec("spotify-launcher"), { description = "Spotify" })
-hl.bind("ALT + X", exec("qalculate-gtk"), { description = "Calculator" })
+hl.bind("ALT + C", exec(apps.menu .. " -m calc"), { description = "Calculator" })
 
 -- ELECTRON_OZONE_PLATFORM_HINT=wayland (set in hyprland.lua) handles the flags.
 hl.bind("ALT + comma", exec("obsidian"), { description = "Obsidian" })
 hl.bind("ALT + period", exec("thunderbird"), { description = "Thunderbird" })
-hl.bind("ALT + F2", exec("flatpak run com.github.IsmaelMartinez.teams_for_linux"), { description = "Teams" })
 
 -----------------
 --- SCREENSHOTS ---
@@ -48,8 +47,13 @@ for key, dir in pairs(focus_dirs) do
   hl.bind(main_mod .. " + " .. key, hl.dsp.focus({ direction = dir }), { description = "Focus " .. key })
 end
 
-hl.bind("ALT + right", hl.dsp.focus({ workspace = "+1" }), { description = "Next workspace" })
-hl.bind("ALT + left", hl.dsp.focus({ workspace = "-1" }), { description = "Previous workspace" })
+hl.bind("ALT + right", hl.dsp.focus({ workspace = "+1" }), { description = "Next workspace", dont_inhibit = true })
+hl.bind("ALT + left", hl.dsp.focus({ workspace = "-1" }), { description = "Previous workspace", dont_inhibit = true })
+-- hl.bind("ALT + right", hl.dsp.focus({ workspace = "+1" }), { description = "Next workspace", dont_inhibit = true })
+
+-- Hack voor VM's die keyboard capturen
+hl.bind(main_mod .. " + SHIFT + left", hl.dsp.focus({ workspace = "-1" }), { dont_inhibit = true })
+hl.bind(main_mod .. " + SHIFT + right", hl.dsp.focus({ workspace = "+1" }), { dont_inhibit = true })
 
 -------------------
 --- WORKSPACES 1-10 ---

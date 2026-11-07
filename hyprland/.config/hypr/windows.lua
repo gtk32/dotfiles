@@ -35,13 +35,11 @@ hl.window_rule({
 --- STEAM ---
 -----------
 
-hl.window_rule({ match = { class = "steam" }, float = true })
-hl.window_rule({ match = { class = "steam", title = "Steam" }, center = true, size = { 1100, 700 } })
 hl.window_rule({ match = { class = "steam", title = "Friends List" }, size = { 460, 800 } })
-hl.window_rule({ match = { class = "steam" }, idle_inhibit = "fullscreen" })
+hl.window_rule({ match = { class = "^(steam_app_306130)$" }, float = true, no_initial_focus = true })
 
----------------
---- QALCULATE ---
----------------
+-----------
+--- OTHER ---
+-----------
 
-hl.window_rule({ match = { class = "qalculate-gtk" }, float = true, center = true, size = { 700, 600 } })
+hl.window_rule({ match = { class = "^(com.seafile.seafile-applet)$" }, float = true, workspace = "9 silent" })
