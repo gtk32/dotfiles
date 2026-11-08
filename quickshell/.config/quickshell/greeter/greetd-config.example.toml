@@ -1,0 +1,8 @@
+# Example for /etc/greetd/config.toml  (requires cage)
+# Test from a tty/another VT first; keep Ctrl+Alt+F2 as a fallback.
+[terminal]
+vt = 1
+
+[default_session]
+command = "env QT_WAYLAND_DISABLE_WINDOWDECORATION=1 cage -s -- quickshell -p /home/geert/.config/quickshell/greeter"
+user = "geert"
