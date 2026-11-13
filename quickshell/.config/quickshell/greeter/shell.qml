@@ -16,9 +16,9 @@ ShellRoot {
     // Patinir, "Landscape with Charon Crossing the Styx" (Prado, c. 1520), public domain
     // Pick a variant with STYX_WALLPAPER=patinir|brueghel|dore-charon (default: patinir)
     readonly property var variants: ({
-        "patinir":     { file: "styx-wallpaper.jpg",         card: "bottom", veil: 1.0, keel: 0.70 },
-        "brueghel":    { file: "wallpapers/brueghel.jpg",    card: "above",  veil: 0.9, heads: 0.64 },
-        "dore-charon": { file: "wallpapers/dore-charon.jpg", card: "center", veil: 0.5, at: 0.66 }
+        "patinir":     { file: "styx-wallpaper.jpg",         veil: 1.0 },
+        "brueghel":    { file: "wallpapers/brueghel.jpg",    veil: 0.9 },
+        "dore-charon": { file: "wallpapers/dore-charon.jpg", veil: 0.5 }
     })
     readonly property var variant: variants[Quickshell.env("STYX_WALLPAPER")] ?? variants["patinir"]
     readonly property url wallpaper: Qt.resolvedUrl(variant.file)
@@ -268,101 +268,119 @@ ShellRoot {
             }
         }
 
-        // Card: translucent, dark
-        Rectangle {
+        // Login: macOS style, no tile. Avatar, name and a pill field float directly on the painting.
+        Item {
             id: card
-            // Position per variant so the main motif (boat, Charon) stays visible
-            x: root.variant.card === "left" ? parent.width * 0.08
-               : root.variant.card === "right" ? parent.width - width - parent.width * 0.08
-               : (parent.width - width) / 2
-            // "bottom": just below the boat keel (keel = relative height in the painting,
-            // corrected for PreserveAspectCrop cropping), never off screen
-            y: root.variant.card === "bottom"
-               ? Math.min((parent.height - wall.paintedHeight) / 2 + wall.paintedHeight * root.variant.keel
-                          + parent.height * 0.04,
-                          parent.height - height - parent.height * 0.03)
-               : root.variant.card === "above"
-                 // center, just above the passengers' heads (heads = relative height)
-                 ? (parent.height - wall.paintedHeight) / 2 + wall.paintedHeight * root.variant.heads
-                   - height - parent.height * 0.03
-               : root.variant.at !== undefined
-                 // center/side: vertically centered at relative height "at" in the painting
-                 ? (parent.height - wall.paintedHeight) / 2 + wall.paintedHeight * root.variant.at - height / 2
-               : (parent.height - height) / 2 + parent.height * 0.08
-            width: 300
-            height: col.implicitHeight + 36
-            radius: 8
-            color: Qt.rgba(0.04, 0.07, 0.08, 0.78)
-            border.width: 1
-            border.color: Qt.rgba(0.79, 0.66, 0.43, 0.35)
+            // Same spot for every wallpaper: centered, in the lower part of the screen
+            // (like macOS), never off screen
+            x: (parent.width - width) / 2
+            y: Math.min(parent.height * 0.79, parent.height - height - parent.height * 0.02)
+            width: 280
+            height: col.implicitHeight
 
             Column {
                 id: col
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.margins: 22
-                spacing: 8
+                spacing: 10
 
-                // Username: rectangular field, same size as the password field
-                Rectangle {
-                    width: parent.width
-                    height: 38
-                    radius: 4
-                    color: Qt.rgba(1, 1, 1, 0.08)
-                    border.width: 1
-                    border.color: userField.activeFocus ? root.gold : Qt.rgba(1, 1, 1, 0.12)
+                // Avatar: round, initial of the username
+                Item {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: 88; height: 88
 
-                    TextInput {
-                        id: userField
+                    // soft drop shadow
+                    Rectangle {
                         anchors.fill: parent
-                        anchors.leftMargin: 12
-                        anchors.rightMargin: 12
-                        verticalAlignment: TextInput.AlignVCenter
-                        text: root.defaultUser
-                        enabled: !root.busy
-                        color: root.ink
-                        selectionColor: root.gold
-                        selectedTextColor: root.night
-                        font.family: root.uiFont
-                        font.pixelSize: 15
-                        clip: true
-                        KeyNavigation.tab: pwField
-                        onAccepted: pwField.forceActiveFocus()
-
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            visible: userField.text === "" && !userField.preeditText
-                            text: "Username"
-                            color: Qt.rgba(1, 1, 1, 0.45)
-                            font: userField.font
+                        anchors.topMargin: 4
+                        anchors.leftMargin: -2
+                        anchors.rightMargin: -2
+                        anchors.bottomMargin: -4
+                        radius: width / 2
+                        color: "#40000000"
+                    }
+                    Rectangle {
+                        anchors.fill: parent
+                        radius: width / 2
+                        border.width: 1
+                        border.color: Qt.rgba(1, 1, 1, 0.28)
+                        gradient: Gradient {
+                            GradientStop { position: 0.0; color: Qt.rgba(1, 1, 1, 0.34) }
+                            GradientStop { position: 1.0; color: Qt.rgba(1, 1, 1, 0.14) }
                         }
+                        Text {
+                            anchors.centerIn: parent
+                            text: userField.text !== "" ? userField.text.charAt(0).toUpperCase() : "?"
+                            color: "#ffffff"
+                            font.family: root.serifFont
+                            font.pixelSize: 40
+                            font.weight: Font.Light
+                        }
+                    }
+                }
+
+                // Username: plain centered name, editable (Tab / click)
+                TextInput {
+                    id: userField
+                    width: parent.width
+                    height: 30
+                    horizontalAlignment: TextInput.AlignHCenter
+                    verticalAlignment: TextInput.AlignVCenter
+                    text: root.defaultUser
+                    enabled: !root.busy
+                    color: "#ffffff"
+                    selectionColor: root.gold
+                    selectedTextColor: root.night
+                    font.family: root.uiFont
+                    font.pixelSize: 20
+                    font.weight: Font.DemiBold
+                    clip: true
+                    KeyNavigation.tab: pwField
+                    onAccepted: pwField.forceActiveFocus()
+
+                    Text {
+                        anchors.centerIn: parent
+                        visible: userField.text === "" && !userField.preeditText
+                        text: "Username"
+                        color: Qt.rgba(1, 1, 1, 0.5)
+                        font: userField.font
+                    }
+                    // thin underline only while editing the name
+                    Rectangle {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.bottom: parent.bottom
+                        width: parent.width * 0.5; height: 1
+                        color: root.gold
+                        opacity: userField.activeFocus ? 0.8 : 0
+                        Behavior on opacity { NumberAnimation { duration: 150 } }
                     }
                 }
 
                 // Password / answer to a greetd prompt (Enter submits)
                 Rectangle {
                     id: pill
-                    width: parent.width
-                    height: 38
-                    radius: 4
-                    color: Qt.rgba(1, 1, 1, 0.08)
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: 220
+                    height: 36
+                    radius: height / 2
+                    color: Qt.rgba(1, 1, 1, pwField.activeFocus ? 0.26 : 0.18)
                     border.width: 1
-                    border.color: pwField.activeFocus ? root.gold : Qt.rgba(1, 1, 1, 0.12)
+                    border.color: Qt.rgba(1, 1, 1, pwField.activeFocus ? 0.38 : 0.22)
+                    Behavior on color { ColorAnimation { duration: 150 } }
 
                     TextInput {
                         id: pwField
                         anchors.fill: parent
-                        anchors.leftMargin: 12
-                        anchors.rightMargin: 12
+                        anchors.leftMargin: 16
+                        anchors.rightMargin: 40
                         verticalAlignment: TextInput.AlignVCenter
                         focus: true
                         enabled: !root.busy || root.promptActive
-                        color: root.ink
+                        color: "#ffffff"
                         selectionColor: root.gold
                         selectedTextColor: root.night
                         font.family: root.uiFont
-                        font.pixelSize: 15
+                        font.pixelSize: 14
                         echoMode: (root.promptActive && root.promptEcho) ? TextInput.Normal : TextInput.Password
                         passwordCharacter: "●"
                         clip: true
@@ -375,9 +393,35 @@ ShellRoot {
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: pwField.text === "" && !pwField.preeditText
-                            text: root.promptActive ? root.promptText.replace(/:\s*$/, "") : "Password"
-                            color: Qt.rgba(1, 1, 1, 0.45)
+                            text: root.promptActive ? root.promptText.replace(/:\s*$/, "") : "Enter Password"
+                            color: Qt.rgba(1, 1, 1, 0.6)
                             font: pwField.font
+                        }
+                    }
+
+                    // Round submit arrow inside the field
+                    Rectangle {
+                        anchors.right: parent.right
+                        anchors.rightMargin: 5
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: 26; height: 26; radius: 13
+                        color: Qt.rgba(1, 1, 1, goArea.containsMouse ? 0.5 : 0.32)
+                        opacity: (pwField.text !== "" || root.busy) ? 1 : 0
+                        Behavior on opacity { NumberAnimation { duration: 150 } }
+                        Text {
+                            anchors.centerIn: parent
+                            anchors.verticalCenterOffset: -1
+                            text: root.busy && !root.promptActive ? "…" : "→"
+                            color: "#ffffff"
+                            font.family: root.uiFont
+                            font.pixelSize: 15
+                            font.weight: Font.DemiBold
+                        }
+                        MouseArea {
+                            id: goArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onClicked: pwField.accepted()
                         }
                     }
                 }
@@ -390,38 +434,20 @@ ShellRoot {
                     wrapMode: Text.WordWrap
                     text: root.message !== "" ? root.message
                           : (root.capsLock ? "Caps Lock is on" : "")
-                    color: root.messageIsError ? root.ember
-                           : (root.message === "" && root.capsLock ? root.gold : Qt.rgba(1, 1, 1, 0.75))
+                    color: root.messageIsError ? "#e0786c"
+                           : (root.message === "" && root.capsLock ? root.gold : Qt.rgba(1, 1, 1, 0.8))
                     font.family: root.uiFont
-                    font.pixelSize: 14
+                    font.pixelSize: 13
                 }
 
-                // Session picker
-                Rectangle {
-                    width: parent.width
-                    height: 30
-                    radius: 4
-                    color: sessionArea.containsMouse ? Qt.rgba(1, 1, 1, 0.14) : Qt.rgba(1, 1, 1, 0.07)
-
-                    Row {
-                        id: sessionRow
-                        anchors.centerIn: parent
-                        spacing: 8
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: root.session ? root.session.name : "—"
-                            color: "#ffffff"
-                            font.family: root.uiFont
-                            font.pixelSize: 14
-                        }
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: "⌄"
-                            color: Qt.rgba(1, 1, 1, 0.6)
-                            font.family: root.uiFont
-                            font.pixelSize: 14
-                        }
-                    }
+                // Session picker: quiet text link
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    topPadding: 4
+                    text: (root.session ? root.session.name : "—") + "  ⌄"
+                    color: Qt.rgba(1, 1, 1, sessionArea.containsMouse ? 0.95 : 0.6)
+                    font.family: root.uiFont
+                    font.pixelSize: 13
                     MouseArea {
                         id: sessionArea
                         anchors.fill: parent
