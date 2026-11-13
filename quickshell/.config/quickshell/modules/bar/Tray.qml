@@ -7,7 +7,7 @@ import Quickshell.Widgets
 import qs
 
 // Systeemvak, altijd zichtbaar.
-// Links = activeren, midden = secundair, rechts = menu.
+// Links = activeren, midden = secundair, rechts = menu (TrayMenu, in thema).
 Row {
     id: root
 
@@ -32,17 +32,18 @@ Row {
                 anchors.fill: parent
                 source: trayArea.modelData.icon
             }
-            QsMenuAnchor {
+            TrayMenu {
                 id: trayMenu
+                target: trayArea
                 menu: trayArea.modelData.menu
-                anchor.item: trayArea
-                anchor.edges: Edges.Bottom
-                anchor.gravity: Edges.Bottom
             }
             onClicked: mouse => {
-                if (mouse.button === Qt.LeftButton) trayArea.modelData.activate()
-                else if (mouse.button === Qt.MiddleButton) trayArea.modelData.secondaryActivate()
-                else if (trayArea.modelData.hasMenu) trayMenu.open()
+                if (mouse.button === Qt.LeftButton) {
+                    // Sommige apps hebben alleen een menu: dan opent linksklik dat menu
+                    if (trayArea.modelData.onlyMenu && trayArea.modelData.hasMenu) trayMenu.toggle()
+                    else trayArea.modelData.activate()
+                } else if (mouse.button === Qt.MiddleButton) trayArea.modelData.secondaryActivate()
+                else if (trayArea.modelData.hasMenu) trayMenu.toggle()
             }
         }
     }
