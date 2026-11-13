@@ -1,4 +1,6 @@
+//@ pragma UseQApplication
 // shell.qml: alleen opstarten.
+// (UseQApplication is nodig voor QsMenuAnchor, het rechtsklik-menu van de tray.)
 // Structuur:
 //   Theme / Config / Popups / Icons  gedeelde singletons
 //   components/                      herbruikbare UI-bouwstenen
