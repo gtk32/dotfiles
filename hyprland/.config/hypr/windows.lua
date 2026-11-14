@@ -25,7 +25,7 @@ end
 --------------
 
 hl.window_rule({
-  match = { class = "^(btop|calcure|pulsemixer|wifi)$" },
+  match = { class = "^(btop|calcure|pulsemixer|wiremix)$" },
   workspace = "special:magic",
   opacity = "0.8 0.8",
   animation = "slide 400 ease-in",

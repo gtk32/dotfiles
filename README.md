@@ -2,7 +2,7 @@
 
 GNU [stow](https://www.gnu.org/software/stow/)-managed dotfiles for Arch Linux (also compatible with Fedora/macOS).
 
-Includes: bash, hyprland, kitty, mako, nvim, quickshell, satty, starship, sway, tofi, waybar.
+Includes: bash, hyprland, kitty, mako, nvim, quickshell, satty, starship, styx, sway, tofi, waybar. `styx-image/` is read by the styx image build and is not a stow package (see its README).
 
 ## Layout
 

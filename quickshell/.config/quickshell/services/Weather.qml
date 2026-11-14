@@ -135,7 +135,7 @@ Singleton {
 
     // ---------- Instellingen laden (herlaadt bij wijziging) ----------
     FileView {
-        path: Quickshell.shellPath("weather.json")
+        path: Quickshell.env("HOME") + "/.config/styx/weather.json"
         watchChanges: true
         printErrors: false
         onFileChanged: reload()

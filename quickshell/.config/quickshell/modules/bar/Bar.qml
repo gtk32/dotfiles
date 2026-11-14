@@ -94,8 +94,9 @@ Scope {
                 clickable: true
                 acceptedButtons: Qt.LeftButton | Qt.RightButton
                 onClicked: mouse => {
-                    if (mouse.button === Qt.RightButton) Quickshell.execDetached(Config.calendarApp)
-                    else bar.altClock = !bar.altClock
+                    if (mouse.button === Qt.RightButton) {
+                        if (Config.calendarApp.length > 0) Quickshell.execDetached(Config.calendarApp)
+                    } else bar.altClock = !bar.altClock
                 }
 
                 CalendarPopup { target: clockText }
@@ -134,7 +135,7 @@ Scope {
                     icon: root.netIcon()
                     iconSize: Theme.netIconSize
                     color: Network.kind === "none" ? Theme.warn : Theme.fg
-                    clickable: true
+                    clickable: Config.networkApp.length > 0
                     onClicked: Quickshell.execDetached(Config.networkApp)
                 }
 
@@ -147,7 +148,7 @@ Scope {
                     text: (muted ? Theme.g(0xf075f) : Theme.g(0xf028)) + "  " + Math.round((sink?.audio?.volume ?? 0) * 100) + "%"
                     color: muted ? Theme.dim : Theme.fg
                     clickable: true
-                    onClicked: Quickshell.execDetached(Config.audioApp)
+                    onClicked: if (Config.audioApp.length > 0) Quickshell.execDetached(Config.audioApp)
                     onScrolled: wheel => {
                         const a = audio.sink?.audio
                         if (!a) return
@@ -169,7 +170,7 @@ Scope {
                     icon: Theme.g(0xf035b)
                     text: root.cpuText()
                     clickable: true
-                    onClicked: Quickshell.execDetached(Config.systemMonitor)
+                    onClicked: if (Config.systemMonitor.length > 0) Quickshell.execDetached(Config.systemMonitor)
 
                     CpuPopup { target: cpuItem }
                 }

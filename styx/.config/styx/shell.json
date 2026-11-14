@@ -1,0 +1,5 @@
+{
+  "audioApp": ["kitty", "--class", "pulsemixer", "--config", "~/.config/kitty/pulsemixer.conf", "pulsemixer"],
+  "systemMonitor": ["kitty", "--class", "btop", "--config", "~/.config/kitty/btop.conf", "btop"],
+  "calendarApp": ["kitty", "--class", "calcure", "--config", "~/.config/kitty/calcure.conf", "calcure"]
+}
