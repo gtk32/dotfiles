@@ -42,7 +42,7 @@ rmdir ~/.config/<app>
 git clone https://github.com/gtk32/dotfiles.git
 cd dotfiles
 
-stow -t ~ */        # stow every package at once
+stow -t ~ $(ls -d */ | grep -v "^styx-image/")   # every package; styx-image/ is read by the styx build
 ```
 
 > Stow never overwrites existing files. If a target already exists in `$HOME`, either remove it first or use `stow --adopt -t ~ */` to absorb the existing files into the repo.
