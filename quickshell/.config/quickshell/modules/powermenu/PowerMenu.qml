@@ -14,7 +14,7 @@ Scope {
     readonly property var items: [
         { icon: 0xf04b2, label: "Suspend",  cmd: ["systemctl", "suspend"] },
         { icon: 0xf0709, label: "Reboot",   cmd: ["systemctl", "reboot"] },
-        // Logout: sessie beëindigen, greetd/tuigreet verschijnt weer.
+        // Logout: sessie beëindigen, de greeter (greetd) verschijnt weer.
         // Valt terug op Hyprland's eigen exit als er geen sessie-id is.
         { icon: 0xf0343, label: "Logout",   cmd: ["sh", "-c", "loginctl terminate-session \"$XDG_SESSION_ID\" || hyprctl dispatch exit"] },
         { icon: 0xf0425, label: "Shutdown", cmd: ["systemctl", "poweroff"] }
