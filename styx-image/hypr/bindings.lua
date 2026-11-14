@@ -9,8 +9,7 @@ end
 
 hl.bind(main_mod .. " + Return", exec(apps.terminal), { description = "Terminal" })
 hl.bind(main_mod .. " + Q", hl.dsp.window.close(), { description = "Close window" })
-hl.bind(main_mod .. " + E", exec("hyprshutdown"), { description = "Quit Hyprland" })
-hl.bind(main_mod .. " + D", exec(apps.file_manager), { description = "File manager" })
+hl.bind(main_mod .. " + E", exec("uwsm stop"), { description = "End the session" })
 hl.bind(main_mod .. " + T", hl.dsp.window.float({ action = "toggle" }), { description = "Toggle floating" })
 hl.bind(main_mod .. " + Space", exec("qs -p /usr/share/styx/quickshell ipc call launcher toggle"), { description = "Launcher" })
 hl.bind(main_mod .. " + L", exec("qs -p /usr/share/styx/quickshell ipc call powermenu toggle"), { description = "Power menu" })

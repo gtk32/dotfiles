@@ -13,7 +13,6 @@
 -- require() scopes are isolated.
 apps = {
   terminal     = "kitty",
-  file_manager = "nautilus --new-window",
 }
 
 hl.env("XCURSOR_SIZE", "24")
