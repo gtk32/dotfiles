@@ -33,9 +33,9 @@ hl.config({
 
 hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
 
-require("./monitors")
-require("./autostart")
-require("./looknfeel")
-require("./bindings")
-require("./windows")
-require("./gaming")
+-- Relative require paths resolve from the *user's* main config, not from this
+-- file, so the modules are loaded by absolute path.
+local dir = "/usr/share/styx/hypr/"
+for _, module in ipairs({ "monitors", "autostart", "looknfeel", "bindings", "windows", "gaming" }) do
+  require(dir .. module)
+end
