@@ -51,4 +51,6 @@ hl.window_rule({
   float = true,
   size = { 1200, 800 },
   center = true,
+  -- The "smart borders" workspace rule above would hide the border here.
+  border_size = 2,
 })
