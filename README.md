@@ -2,7 +2,7 @@
 
 GNU [stow](https://www.gnu.org/software/stow/)-managed dotfiles for Arch Linux (also compatible with Fedora/macOS).
 
-Includes: bash, hyprland, kitty, mako, nvim, quickshell, satty, starship, sway, tofi, waybar.
+Includes: bash, gtk, hyprland, kitty, mako, nvim, quickshell, satty, starship, sway, tofi, waybar.
 
 ## Layout
 

@@ -1,0 +1,107 @@
+/* Moonfly voor GTK3, bovenop het ingebouwde Adwaita (dark).
+ * Kleuren gelijk aan kitty/moonfly-kitty.conf en ~/.config/gtk-4.0/gtk.css */
+
+@define-color mf_bg        #080808;
+@define-color mf_bg_alt    #121212;
+@define-color mf_bg_hover  #1c1c1c;
+@define-color mf_fg        #bdbdbd;
+@define-color mf_fg_bright #e4e4e4;
+@define-color mf_grey      #323437;
+@define-color mf_dim       #5c6370;
+@define-color mf_blue      #80a0ff;
+@define-color mf_red       #ff5d5d;
+@define-color mf_yellow    #e3c78a;
+@define-color mf_green     #8cc85f;
+
+/* Basis */
+@define-color theme_bg_color            @mf_bg;
+@define-color theme_fg_color            @mf_fg;
+@define-color theme_base_color          @mf_bg;
+@define-color theme_text_color          @mf_fg;
+@define-color theme_selected_bg_color   @mf_blue;
+@define-color theme_selected_fg_color   #080808;
+@define-color theme_tooltip_bg_color    @mf_bg_alt;
+@define-color theme_tooltip_fg_color    @mf_fg;
+
+/* Unfocused / insensitive */
+@define-color theme_unfocused_bg_color          @mf_bg;
+@define-color theme_unfocused_fg_color          @mf_fg;
+@define-color theme_unfocused_base_color        @mf_bg;
+@define-color theme_unfocused_text_color        @mf_fg;
+@define-color theme_unfocused_selected_bg_color @mf_blue;
+@define-color theme_unfocused_selected_fg_color #080808;
+@define-color insensitive_bg_color      @mf_bg;
+@define-color insensitive_fg_color      @mf_dim;
+@define-color insensitive_base_color    @mf_bg;
+
+/* Randen */
+@define-color borders                   @mf_grey;
+@define-color unfocused_borders         @mf_grey;
+@define-color unfocused_insensitive_borders @mf_grey;
+
+/* Status */
+@define-color warning_color             @mf_yellow;
+@define-color error_color               @mf_red;
+@define-color success_color             @mf_green;
+@define-color content_view_bg           @mf_bg;
+@define-color text_view_bg              @mf_bg;
+
+/* Venster-decoraties (CSD) */
+@define-color wm_title                  @mf_fg;
+@define-color wm_unfocused_title        @mf_dim;
+@define-color wm_bg                     @mf_bg;
+@define-color wm_unfocused_bg           @mf_bg;
+
+/* Kleine aanvullingen op Adwaita */
+menu, .popup menu, popover.background {
+  border: 1px solid @mf_grey;
+}
+menuitem:hover, modelbutton:hover { background-color: @mf_grey; }
+button:hover { background-color: @mf_bg_hover; }
+headerbar, .titlebar { background-image: none; background-color: @mf_bg; border-color: @mf_grey; }
+
+/* ---- Directe widget-overrides ----
+ * Adwaita's eigen @define-color wint van de overrides hierboven, dus de
+ * kleuren worden ook rechtstreeks op de widgets gezet. */
+window, dialog, .background { background-color: #080808; color: #bdbdbd; }
+headerbar, .titlebar, .titlebar:backdrop, headerbar:backdrop {
+  background-image: none; background-color: #080808; color: #bdbdbd;
+  border-color: #323437; box-shadow: none;
+}
+.sidebar, placessidebar, placessidebar list, .sidebar list { background-color: #121212; color: #bdbdbd; }
+entry, spinbutton, textview, textview text, .view, treeview.view, iconview, list, row, scrolledwindow viewport {
+  background-color: #080808; color: #bdbdbd;
+}
+entry { border-color: #323437; background-image: none; }
+button, button.flat:hover, combobox button {
+  background-image: none; background-color: #121212; color: #bdbdbd;
+  border-color: #323437; box-shadow: none; text-shadow: none;
+}
+button:hover { background-color: #1c1c1c; }
+button:active, button:checked { background-color: #323437; }
+button.suggested-action { background-color: #80a0ff; color: #080808; }
+button.destructive-action { background-color: #ff5d5d; color: #080808; }
+menu, .menu, .popup, popover, popover.background, .csd.popup {
+  background-color: #080808; color: #bdbdbd; border: 1px solid #323437;
+}
+menuitem:hover, modelbutton:hover, row:hover { background-color: #323437; }
+selection, *:selected, row:selected, .view:selected, treeview.view:selected, menuitem:selected {
+  background-color: #80a0ff; color: #080808;
+}
+notebook > header, notebook > header > tabs > tab { background-color: #080808; border-color: #323437; }
+notebook > header > tabs > tab:checked { background-color: #121212; }
+scrollbar, scrollbar trough { background-color: #080808; }
+scrollbar slider { background-color: #323437; }
+separator { background-color: #323437; }
+tooltip, tooltip.background { background-color: #121212; color: #bdbdbd; border: 1px solid #323437; }
+progressbar progress, scale highlight, scale trough highlight { background-color: #80a0ff; }
+check:checked, radio:checked, switch:checked { background-color: #80a0ff; color: #080808; }
+
+/* Menubalk, werkbalk en statusbalk (Pluma, Geany, ...) */
+menubar, .menubar, toolbar, .toolbar, .primary-toolbar, .primary-toolbar toolbar,
+.inline-toolbar, toolbar.horizontal, toolbar.vertical, actionbar, statusbar, searchbar, infobar, .info {
+  background-image: none; background-color: #080808; color: #bdbdbd;
+  border-color: #323437; box-shadow: none;
+}
+menubar > menuitem:hover { background-color: #323437; }
+toolbar button, .toolbar button { background-color: #121212; }
