@@ -28,9 +28,10 @@ apps = {
 
 -- https://wiki.hypr.land/configuring/core/environment-variables/
 
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_THEME", "Capitaine Cursors - White")
+-- Capitaine is an xcursor theme (no hyprcursor version), so use the XCURSOR_* vars.
+-- The directory name is "capitaine-cursors-light" (display name "Capitaine Cursors - White").
+hl.env("XCURSOR_THEME", "capitaine-cursors-light")
+hl.env("XCURSOR_SIZE", "36")
 
 -- Force Electron apps onto Wayland (Obsidian, Teams, ...).
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "wayland")
