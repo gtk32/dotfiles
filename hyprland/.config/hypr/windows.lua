@@ -43,3 +43,12 @@ hl.window_rule({ match = { class = "^(steam_app_306130)$" }, float = true, no_in
 -----------
 
 hl.window_rule({ match = { class = "^(com.seafile.seafile-applet)$" }, float = true, workspace = "9 silent" })
+
+-- File chooser dialogs from xdg-desktop-portal-gtk (browser Save as / Open).
+-- GTK remembers a (too tall) size otherwise, so pin a sane floating size.
+hl.window_rule({
+  match = { class = "^(xdg-desktop-portal-gtk)$" },
+  float = true,
+  size = { 1200, 800 },
+  center = true,
+})
