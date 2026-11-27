@@ -49,7 +49,7 @@ hl.window_rule({ match = { class = "^(com.seafile.seafile-applet)$" }, float = t
 hl.window_rule({
   match = { class = "^(xdg-desktop-portal-gtk)$" },
   float = true,
-  size = { 1200, 800 },
+  size = { 1200, 600 },
   center = true,
   -- The "smart borders" workspace rule above would hide the border here.
   border_size = 2,
